@@ -224,13 +224,6 @@ class HTTPToSTDIOProxy(ABC):
         """
         logger.info(f"Starting {self.name} HTTP proxy on {host}:{self.port}")
 
-        # Start subprocess before running server
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-
-        try:
-            loop.run_until_complete(self.start_subprocess())
-            self.mcp.run(transport="http", host=host, port=self.port)
-        finally:
-            loop.run_until_complete(self.stop_subprocess())
-            loop.close()
+        # Don't pre-start subprocess - it will be started lazily on first tool call
+        # This ensures it uses the same event loop as FastMCP
+        self.mcp.run(transport="http", host=host, port=self.port)

@@ -41,33 +41,41 @@ class CodexMCPProxy(HTTPToSTDIOProxy):
     def setup_tools(self):
         """Register Codex tools with FastMCP."""
 
-        @self.mcp.tool(description="Submit a coding task to Codex CLI. Codex will analyze, plan, and execute the task with full access to the local filesystem.")
-        async def codex_task(task: str) -> str:
+        @self.mcp.tool(description="Run a Codex coding session. Codex will analyze, plan, and execute the task with full access to the local filesystem.")
+        async def codex(prompt: str, model: str = "", cwd: str = "") -> str:
             """Submit a coding task to Codex CLI."""
-            return await self._handle_codex_task(task)
+            return await self._handle_codex(prompt, model, cwd)
 
-        @self.mcp.tool(description="Send a follow-up message to continue the Codex conversation. Use this to provide additional context or corrections.")
-        async def codex_reply(message: str) -> str:
-            """Send a follow-up message to Codex."""
-            return await self._handle_codex_reply(message)
+        @self.mcp.tool(description="Continue a Codex conversation by providing the conversation ID and next prompt.")
+        async def codex_reply(conversationId: str, prompt: str) -> str:
+            """Continue a Codex conversation."""
+            return await self._handle_codex_reply(conversationId, prompt)
 
-    async def _handle_codex_task(self, task: str) -> str:
-        """Handle codex_task tool call."""
-        if not task:
-            return "Error: No task provided"
+    async def _handle_codex(self, prompt: str, model: str = "", cwd: str = "") -> str:
+        """Handle codex tool call."""
+        if not prompt:
+            return "Error: No prompt provided"
         try:
-            result = await self.call_subprocess_tool("codex", {"task": task})
+            args = {"prompt": prompt}
+            if model:
+                args["model"] = model
+            if cwd:
+                args["cwd"] = cwd
+            result = await self.call_subprocess_tool("codex", args)
             return result
         except Exception as e:
-            logger.error(f"Codex task error: {e}")
-            return f"Error executing Codex task: {str(e)}"
+            logger.error(f"Codex error: {e}")
+            return f"Error executing Codex: {str(e)}"
 
-    async def _handle_codex_reply(self, message: str) -> str:
+    async def _handle_codex_reply(self, conversationId: str, prompt: str) -> str:
         """Handle codex_reply tool call."""
-        if not message:
-            return "Error: No message provided"
+        if not conversationId or not prompt:
+            return "Error: Both conversationId and prompt are required"
         try:
-            result = await self.call_subprocess_tool("codex-reply", {"message": message})
+            result = await self.call_subprocess_tool("codex-reply", {
+                "conversationId": conversationId,
+                "prompt": prompt
+            })
             return result
         except Exception as e:
             logger.error(f"Codex reply error: {e}")
