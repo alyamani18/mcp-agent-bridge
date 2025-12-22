@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-agent-bridge"
+version = "0.1.0"
+description = "Bidirectional MCP integration for AI agent systems - Connect Codex CLI, Claude CLI, and Gemini CLI with Agent Zero"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Wojciech Wiesner", email = "developer@example.com"}
+]
+keywords = [
+    "mcp",
+    "model-context-protocol",
+    "agent-zero",
+    "codex",
+    "claude",
+    "gemini",
+    "ai-agents",
+    "llm",
+    "automation",
+    "fastmcp"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "fastmcp>=0.1.0",
+    "mcp>=0.1.0",
+    "httpx>=0.27.0",
+    "uvicorn>=0.30.0",
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.1.0",
+    "mypy>=1.8.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/mcp-agent-bridge"
+Documentation = "https://github.com/yourusername/mcp-agent-bridge/blob/main/docs/INSTALLATION.md"
+Repository = "https://github.com/yourusername/mcp-agent-bridge"
+Issues = "https://github.com/yourusername/mcp-agent-bridge/issues"
+
+[project.scripts]
+mcp-codex-proxy = "src.codex_mcp_proxy:main"
+mcp-claude-proxy = "src.claude_mcp_proxy:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*", "config*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true

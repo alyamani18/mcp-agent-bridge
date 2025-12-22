@@ -1,0 +1,30 @@
+[Unit]
+Description=Claude MCP HTTP Proxy for MCP Agent Bridge
+Documentation=https://github.com/yourusername/mcp-agent-bridge
+After=network.target
+
+[Service]
+Type=simple
+User=vizi
+Group=vizi
+WorkingDirectory=/home/vizi/mcp-agent-bridge
+Environment=PYTHONPATH=/home/vizi/mcp-agent-bridge
+EnvironmentFile=-/home/vizi/mcp-agent-bridge/.env
+
+ExecStart=/usr/bin/python3 /home/vizi/mcp-agent-bridge/src/claude_mcp_proxy.py
+
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=claude-mcp-proxy
+
+# Security hardening
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=yes
+ReadWritePaths=/var/log/mcp-agent-bridge
+
+[Install]
+WantedBy=multi-user.target
