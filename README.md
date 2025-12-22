@@ -20,7 +20,7 @@ Connect **OpenAI Codex CLI**, **Anthropic Claude CLI**, and **Google Gemini CLI*
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/mcp-agent-bridge.git
+git clone https://github.com/vizi2000/mcp-agent-bridge.git
 cd mcp-agent-bridge
 
 # Install dependencies

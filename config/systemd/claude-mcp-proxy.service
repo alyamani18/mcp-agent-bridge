@@ -1,6 +1,6 @@
 [Unit]
 Description=Claude MCP HTTP Proxy for MCP Agent Bridge
-Documentation=https://github.com/yourusername/mcp-agent-bridge
+Documentation=https://github.com/vizi2000/mcp-agent-bridge
 After=network.target
 
 [Service]

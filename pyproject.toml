@@ -53,10 +53,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/mcp-agent-bridge"
-Documentation = "https://github.com/yourusername/mcp-agent-bridge/blob/main/docs/INSTALLATION.md"
-Repository = "https://github.com/yourusername/mcp-agent-bridge"
-Issues = "https://github.com/yourusername/mcp-agent-bridge/issues"
+Homepage = "https://github.com/vizi2000/mcp-agent-bridge"
+Documentation = "https://github.com/vizi2000/mcp-agent-bridge/blob/main/docs/INSTALLATION.md"
+Repository = "https://github.com/vizi2000/mcp-agent-bridge"
+Issues = "https://github.com/vizi2000/mcp-agent-bridge/issues"
 
 [project.scripts]
 mcp-codex-proxy = "src.codex_mcp_proxy:main"
