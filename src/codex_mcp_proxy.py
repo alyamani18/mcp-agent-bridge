@@ -38,45 +38,40 @@ class CodexMCPProxy(HTTPToSTDIOProxy):
             timeout=300.0
         )
 
-    def get_tools(self) -> list[dict]:
-        """Return Codex tools to expose."""
-        return [
-            {
-                "name": "codex_task",
-                "description": (
-                    "Submit a coding task to Codex CLI. "
-                    "Codex will analyze, plan, and execute the task "
-                    "with full access to the local filesystem."
-                ),
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "task": {
-                            "type": "string",
-                            "description": "The coding task or question"
-                        }
-                    },
-                    "required": ["task"]
-                }
-            },
-            {
-                "name": "codex_reply",
-                "description": (
-                    "Send a follow-up message to continue the Codex conversation. "
-                    "Use this to provide additional context or corrections."
-                ),
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "message": {
-                            "type": "string",
-                            "description": "Follow-up message"
-                        }
-                    },
-                    "required": ["message"]
-                }
-            }
-        ]
+    def setup_tools(self):
+        """Register Codex tools with FastMCP."""
+
+        @self.mcp.tool(description="Submit a coding task to Codex CLI. Codex will analyze, plan, and execute the task with full access to the local filesystem.")
+        async def codex_task(task: str) -> str:
+            """Submit a coding task to Codex CLI."""
+            return await self._handle_codex_task(task)
+
+        @self.mcp.tool(description="Send a follow-up message to continue the Codex conversation. Use this to provide additional context or corrections.")
+        async def codex_reply(message: str) -> str:
+            """Send a follow-up message to Codex."""
+            return await self._handle_codex_reply(message)
+
+    async def _handle_codex_task(self, task: str) -> str:
+        """Handle codex_task tool call."""
+        if not task:
+            return "Error: No task provided"
+        try:
+            result = await self.call_subprocess_tool("codex", {"task": task})
+            return result
+        except Exception as e:
+            logger.error(f"Codex task error: {e}")
+            return f"Error executing Codex task: {str(e)}"
+
+    async def _handle_codex_reply(self, message: str) -> str:
+        """Handle codex_reply tool call."""
+        if not message:
+            return "Error: No message provided"
+        try:
+            result = await self.call_subprocess_tool("codex-reply", {"message": message})
+            return result
+        except Exception as e:
+            logger.error(f"Codex reply error: {e}")
+            return f"Error sending Codex reply: {str(e)}"
 
     async def handle_tool_call(self, name: str, arguments: dict) -> str:
         """Handle incoming tool calls."""

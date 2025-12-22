@@ -23,7 +23,7 @@ class HTTPToSTDIOProxy(ABC):
     to STDIO MCP servers (CLI tools).
 
     Subclasses must implement:
-    - get_tools(): Return tool definitions
+    - setup_tools(): Register tools with self.mcp
     - handle_tool_call(): Handle incoming tool calls
     """
 
@@ -50,29 +50,14 @@ class HTTPToSTDIOProxy(ABC):
         self.mcp = FastMCP(name)
         self.process: Optional[asyncio.subprocess.Process] = None
         self._request_id = 0
-        self._setup_tools()
-
-    def _setup_tools(self):
-        """Setup MCP tools from subclass definitions."""
-        for tool_def in self.get_tools():
-            self._register_tool(tool_def)
-
-    def _register_tool(self, tool_def: dict):
-        """Register a single tool with FastMCP."""
-        name = tool_def["name"]
-        description = tool_def.get("description", "")
-
-        @self.mcp.tool(name=name, description=description)
-        async def tool_handler(**kwargs):
-            return await self.handle_tool_call(name, kwargs)
+        self.setup_tools()
 
     @abstractmethod
-    def get_tools(self) -> list[dict]:
+    def setup_tools(self):
         """
-        Return tool definitions to expose.
+        Register tools with self.mcp.
 
-        Returns:
-            List of tool definition dicts with 'name', 'description', 'parameters'
+        Subclasses should use @self.mcp.tool() decorator to register tools.
         """
         pass
 

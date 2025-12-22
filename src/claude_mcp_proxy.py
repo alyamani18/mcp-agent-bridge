@@ -38,57 +38,58 @@ class ClaudeMCPProxy(HTTPToSTDIOProxy):
             timeout=300.0
         )
 
-    def get_tools(self) -> list[dict]:
-        """Return Claude tools to expose."""
-        return [
-            {
-                "name": "claude_query",
-                "description": (
-                    "Send a query to Claude CLI for analysis, reasoning, "
-                    "code review, or complex problem solving. "
-                    "Claude will process the request with full context awareness."
-                ),
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "prompt": {
-                            "type": "string",
-                            "description": "The prompt or question for Claude"
-                        },
-                        "context": {
-                            "type": "string",
-                            "description": "Optional additional context"
-                        }
-                    },
-                    "required": ["prompt"]
-                }
-            },
-            {
-                "name": "claude_code_review",
-                "description": (
-                    "Request Claude to review code for bugs, security issues, "
-                    "and best practices. Provide the code as a string."
-                ),
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "code": {
-                            "type": "string",
-                            "description": "The code to review"
-                        },
-                        "language": {
-                            "type": "string",
-                            "description": "Programming language (e.g., 'python', 'javascript')"
-                        },
-                        "focus": {
-                            "type": "string",
-                            "description": "Focus area: 'security', 'performance', 'style', or 'all'"
-                        }
-                    },
-                    "required": ["code"]
-                }
-            }
-        ]
+    def setup_tools(self):
+        """Register Claude tools with FastMCP."""
+
+        @self.mcp.tool(description="Send a query to Claude CLI for analysis, reasoning, code review, or complex problem solving.")
+        async def claude_query(prompt: str, context: str = "") -> str:
+            """Query Claude CLI."""
+            return await self._handle_claude_query(prompt, context)
+
+        @self.mcp.tool(description="Request Claude to review code for bugs, security issues, and best practices.")
+        async def claude_code_review(code: str, language: str = "auto", focus: str = "all") -> str:
+            """Request Claude code review."""
+            return await self._handle_code_review(code, language, focus)
+
+    async def _handle_claude_query(self, prompt: str, context: str = "") -> str:
+        """Handle claude_query tool call."""
+        if not prompt:
+            return "Error: No prompt provided"
+
+        full_prompt = prompt
+        if context:
+            full_prompt = f"Context:\n{context}\n\nQuery:\n{prompt}"
+
+        try:
+            result = await self.call_subprocess_tool("query", {"prompt": full_prompt})
+            return result
+        except Exception as e:
+            logger.error(f"Claude query error: {e}")
+            return f"Error querying Claude: {str(e)}"
+
+    async def _handle_code_review(self, code: str, language: str = "auto", focus: str = "all") -> str:
+        """Handle claude_code_review tool call."""
+        if not code:
+            return "Error: No code provided"
+
+        review_prompt = f"""Please review the following {language} code.
+Focus on: {focus}
+
+```{language}
+{code}
+```
+
+Provide a structured review with:
+1. Issues found (bugs, security, etc.)
+2. Improvement suggestions
+3. Overall assessment
+"""
+        try:
+            result = await self.call_subprocess_tool("query", {"prompt": review_prompt})
+            return result
+        except Exception as e:
+            logger.error(f"Claude code review error: {e}")
+            return f"Error during code review: {str(e)}"
 
     async def handle_tool_call(self, name: str, arguments: dict) -> str:
         """Handle incoming tool calls."""

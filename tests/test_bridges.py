@@ -43,20 +43,11 @@ class MockSTDIOBridge(STDIOToHTTPBridge):
 class MockHTTPProxy(HTTPToSTDIOProxy):
     """Mock implementation of HTTPToSTDIOProxy for testing."""
 
-    def get_tools(self):
-        return [
-            {
-                "name": "proxy_tool",
-                "description": "A proxy test tool",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "input": {"type": "string"}
-                    },
-                    "required": ["input"]
-                }
-            }
-        ]
+    def setup_tools(self):
+        """Register test tools."""
+        @self.mcp.tool(description="A proxy test tool")
+        async def proxy_tool(input_text: str) -> str:
+            return await self.handle_tool_call("proxy_tool", {"input": input_text})
 
     async def handle_tool_call(self, name: str, arguments: dict) -> str:
         if name == "proxy_tool":
@@ -141,11 +132,10 @@ class TestHTTPToSTDIOProxy:
         assert proxy.timeout == 30.0
         assert proxy.process is None
 
-    def test_get_tools(self, proxy):
-        """Test tools are returned correctly."""
-        tools = proxy.get_tools()
-        assert len(tools) == 1
-        assert tools[0]["name"] == "proxy_tool"
+    def test_mcp_server_created(self, proxy):
+        """Test MCP server is created."""
+        assert proxy.mcp is not None
+        assert proxy.mcp.name == "test-proxy"
 
     @pytest.mark.asyncio
     async def test_handle_tool_call(self, proxy):
